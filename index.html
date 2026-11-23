@@ -309,7 +309,7 @@ const L = [
     ${note(null,null,310,250,'middle',['the gaps between views','are where problems sit'])}`,
    take:'Seek out multiple viewpoints, especially the ones that are least heard.' },
 
- { key:'Change', c:'#ff9b3d', title:'Improving something that exists is harder than creating something new',
+ { key:'Change', c:'#ff9b3d', title:'The trust that builds a brand can also hold it back',
    base:'M0 430 L1000 430',
    art:`
     <rect class="ink faint" x="110" y="200" width="210" height="210" rx="4"/>
@@ -397,12 +397,7 @@ L.forEach((d, i) => {
   const sc = makeScene(d.c, head, d, d.base, false);
   // centre the whole drawing (with its notes) on the statement below it
   const art = sc.g.querySelector('g[transform^="translate(200 130)"]'), dy = d.key === 'Person' ? 22 : 0;   // the phone sits on the thread like the others
-  const centre = () => { const was = sc.g.style.display; sc.g.style.display = '';
-    // centre on the drawn lines only; side notes must not pull the drawing off centre
-    let x0 = 1e9, x1 = -1e9; art.querySelectorAll('.ink').forEach(e => { const b = e.getBBox(); if (b.width && !e.closest('.spin')){   /* the sun is sky, not part of the pair */ x0 = Math.min(x0, b.x); x1 = Math.max(x1, b.x + b.width); } });
-    const dx = Math.round(775 - (AX + (x0 + x1)/2*S));
-    art.setAttribute('transform', `translate(${AX + dx} ${AY + dy}) scale(${S})`); sc.g.style.display = was; };
-  centre(); if (document.fonts) document.fonts.ready.then(centre);   // measure again once Lato has loaded
+  art.setAttribute('transform', `translate(${[205, 257, 187, 77, 189][i]} ${AY + dy}) scale(${S})`);
   sc.g.setAttribute('transform', `translate(${(i+1)*GAP} 0)`);
   const y0 = +d.base.match(/^M0 (\d+)/)[1];
   sc.ty = W(0, y0)[1]; sc.key = d.key;
