@@ -30,6 +30,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);margin:0;ove
 .note .lead{stroke:var(--dim);stroke-width:.8;fill:none}
 .tagt{font-weight:400;font-style:italic;font-size:16px;fill:var(--dim)}
 
+/* example headings and the quiet line between examples */
+.hd{font-weight:700;font-size:17px;letter-spacing:.06em;fill:var(--thread)}
+.ink.sep{stroke:var(--dim);stroke-opacity:.5}
 .num{font-weight:400;font-size:16px;fill:var(--thread)}
 .ttl{font-weight:300;font-size:38px;fill:var(--text)}
 /* the final zoom-out: only drawings, thread and the statements remain */
@@ -239,64 +242,83 @@ const note = (px, py, tx, ty, anchor, lines) => {
 };
 
 const pack = (x, y) => `<rect class="ink" x="${x}" y="${y}" width="52" height="30" rx="4"/><circle class="ink faint" cx="${x+26}" cy="${y+15}" r="9"/>`;
-const glider = (x, y, s) => `<path class="ink" d="M${x-60*s} ${y} Q${x} ${y-62*s} ${x+60*s} ${y} Q${x} ${y-22*s} ${x-60*s} ${y} L${x} ${y+62*s} L${x+60*s} ${y}"/>` + figUp(x, y + 118*s, s);
+const glider = (x, y, s) => `<path class="ink" d="M${x-60*s} ${y} Q${x} ${y-62*s} ${x+60*s} ${y} Q${x} ${y-22*s} ${x-60*s} ${y} L${x} ${y+62*s} L${x+60*s} ${y}"/>` + hold(x, y + 120*s, s);
 const hold = (x, y, s) => body(x,y,s) + `<path class="ink" d="${P(x,y,s,[['M',0,-34],['L',-15,-40],['L',-12,-58],['M',0,-34],['L',15,-40],['L',12,-58]])}"/>`;
 const strain = (x, y, s) => `<circle class="ink" cx="${x+4*s}" cy="${y-41*s}" r="${6.6*s}"/><path class="ink" d="${P(x,y,s,[['M',2.5,-34.5],['L',-2,-15],['L',-10,-10],['L',-7,0],['M',-2,-15],['L',8,-9],['L',6,0]])}"/><path class="ink" d="${P(x,y,s,[['M',1.5,-30],['L',-13,-35],['L',-11,-50],['M',1.5,-30],['L',17,-35],['L',14,-50]])}"/>`;
+// each example on a slide has its own heading and a quiet line between it and the next
+const hd = (x, y, t) => `<text class="hd fadeEl" x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
+const sep = (x, y1, y2) => `<path class="ink sep" d="M${x} ${y1} L${x} ${y2}"/>`;
+const tag2 = (x, y, a, b) => `<text class="tagt" x="${x}" y="${y}" text-anchor="middle"><tspan x="${x}">${a}</tspan><tspan x="${x}" dy="19">${b}</tspan></text>`;
 const L = [
- { key:'Reason', c:'#3ee8ff', x:15, tags:'belong  ·  human behaviour  ·  adventure tourism',
+ { key:'Reason', c:'#3ee8ff', x:18, tags:'human behaviour',
    title:'We often mistake the reason something is used|for the reason it was created',
    base:'M0 440 L1000 440',
    art:`
-    <path class="ink" d="M210 440 L330 210 L366 268 L396 232 L500 440"/>
-    ${figUp(330,210,1)}${note(330,148,290,108,'middle',['to challenge themselves'])}
-    ${glider(462,108,.62)}${note(462,72,478,46,'middle',['to seek a thrill'])}
-    ${body(330,440,1.1)}${body(366,440,1.1)}<path class="ink" d="M330 402 L348 414 L366 402"/>
-    ${note(348,380,348,344,'middle',['with their friends'])}
-    ${tag(355,474,'the same adventure')}
-    <rect class="ink" x="530" y="196" width="112" height="240" rx="18"/><path class="ink" d="M570 210 L602 210"/>
-    <path class="ink" d="M586 342 C560 322 545 304 558 290 C569 280 586 286 586 300 C586 286 603 280 614 290 C627 304 612 322 586 342 Z"/>
-    ${note(586,196,586,160,'middle',['platforms for romance'])}
-    ${[['rant to someone',202],['share random thoughts',282],['talk without being judged',362]].map(([t,y]) => `<rect class="ink" x="664" y="${y}" width="236" height="46" rx="23"/><path class="ink" d="M684 ${y+46} L670 ${y+60} L704 ${y+46}"/>${note(null,null,782,y+29,'middle',[t])}`).join('')}
-    ${tag(700,474,'what they were actually seeking')}
-    <ellipse class="ink" cx="1015" cy="228" rx="9" ry="7"/><ellipse class="ink" cx="1047" cy="220" rx="9" ry="7"/><path class="ink" d="M1024 228 L1024 186 L1056 178 L1056 220"/>
-    ${note(null,null,1036,132,'middle',['the same','music-based activity'])}
-    <path class="ink faint" d="M1016 250 L976 288 M1054 250 L1098 288"/>
-    ${tag(966,308,'studio')}${tag(1104,308,'open lawn')}
-    <path class="ink" d="M922 440 L922 326 L1010 326 L1010 440"/>
-    ${body(944,440,1.1)}${body(988,440,1.1)}
-    <path class="ink" d="M944 402 L938 420 M988 402 L994 420"/>
-    ${figUp(1084,440,1.1)}${figUp(1112,440,1.1)}
-    <path class="ink" d="M1050 440 l5 -12 M1132 440 l-4 -11"/>
-    ${tag(1036,474,'very different responses')}`,
+    ${hd(332,4,'adventure tourism')}
+    <path class="ink" d="M205 440 L315 210 L346 262 L372 232 L460 440"/>
+    ${hold(315,210,1)}${note(315,146,284,106,'middle',['to challenge themselves'])}
+    ${glider(424,120,.62)}${note(424,84,424,58,'middle',['to seek a thrill'])}
+    ${body(315,440,1.1)}${body(351,440,1.1)}<path class="ink" d="M315 402 L333 414 L351 402"/>
+    ${note(333,382,333,346,'middle',['with their friends'])}
+    ${tag(332,478,'the same adventure')}
+    ${sep(488,40,424)}
+    ${hd(688,4,'belong')}
+    <rect class="ink" x="516" y="190" width="104" height="246" rx="18"/><path class="ink" d="M552 204 L584 204"/>
+    <path class="ink" d="M568 342 C542 322 527 304 540 290 C551 280 568 286 568 300 C568 286 585 280 596 290 C609 304 594 322 568 342 Z"/>
+    ${note(568,190,568,132,'middle',['platforms','for romance'])}
+    ${[['rant to someone',196],['share random thoughts',278],['talk without being judged',360]].map(([t,y]) => `<rect class="ink" x="636" y="${y}" width="226" height="46" rx="23"/><path class="ink" d="M656 ${y+46} L642 ${y+60} L676 ${y+46}"/>${note(null,null,749,y+29,'middle',[t])}`).join('')}
+    ${tag(688,478,'what they were actually seeking')}
+    ${sep(888,40,424)}
+    ${hd(1013,4,'belong prototype')}
+    ${note(null,null,1013,90,'middle',['the same','music-based activity'])}
+    <ellipse class="ink" cx="992" cy="190" rx="9" ry="7"/><ellipse class="ink" cx="1024" cy="182" rx="9" ry="7"/><path class="ink" d="M1001 190 L1001 148 L1033 140 L1033 182"/>
+    <path class="ink faint" d="M994 214 L958 256 M1032 214 L1068 256"/>
+    ${tag(954,282,'studio')}${tag(1072,282,'open lawn')}
+    <path class="ink" d="M910 440 L910 306 L998 306 L998 440"/>
+    ${body(932,440,1.1)}${body(976,440,1.1)}
+    <path class="ink" d="M932 402 L925 420 M976 402 L983 420"/>
+    ${hold(1054,440,1.1)}${hold(1092,440,1.1)}
+    <path class="ink" d="M1026 440 l5 -12 M1116 440 l-4 -11"/>
+    ${tag(1013,478,'very different responses')}`,
    take:"The purpose of a service doesn't always define its value to the people using it." },
 
- { key:'Surface', c:'#ffe14d', x:32, tags:'induben  ·  adventure tourism',
+ { key:'Surface', c:'#ffe14d', x:31, up:26, tags:'',
    title:'The better something works on the surface,|the easier it is to overlook what is struggling underneath',
    base:'M0 450 L1000 450',
    art:`
-    <path class="ink" d="M200 300 L650 300 C690 300 720 318 800 320 C880 322 900 300 950 300 L1090 300"/>
-    ${glider(400,122,1)}${note(340,122,300,92,'end',['an enjoyable','experience'])}
-    ${pack(800,288)}${pack(872,284)}${pack(872,254)}${pack(944,270)}${pack(944,240)}${pack(944,210)}
-    <path class="ink faint" d="M790 232 Q860 216 930 166 M914 166 L930 166 L926 182"/>
-    ${note(996,222,1024,206,'start',['products, sales','and a growing brand'])}
-    ${[230,345,465,585].map(x => hold(x,450,2.58)).join('')}
-    ${strain(740,450,2.64)}${strain(868,450,2.62)}
-    <path class="ink faint" d="M694 342 l-10 -6 M692 356 l-12 0 M796 342 l10 -6 M798 356 l12 0 M822 342 l-8 -6 M821 356 l-9 0 M922 342 l9 -6 M924 356 l10 0"/>
-    <g class="gear"><circle class="ink" cx="1015" cy="375" r="62"/><circle class="ink" cx="1015" cy="375" r="17"/><path class="ink" d="${rays(1015,375,62,72,14)}"/></g>
-    ${tag(230,474,'guides')}${tag(345,474,'equipment checks')}${tag(470,474,'safety measures')}${tag(588,474,'coordination')}
-    ${tag(738,474,'shopfloor workers')}${tag(870,474,'supervisors')}${tag(1015,474,'production processes')}
-    ${note(null,null,408,503,'middle',['preparation that goes unnoticed'])}
-    ${note(null,null,876,503,'middle',['dealing with their own challenges'])}`,
+    ${hd(402,24,'adventure tourism')}
+    <path class="ink faint" d="M220 286 L292 196 L326 228 L372 164 L456 286"/>
+    <path class="ink" d="M566 286 L566 236 L596 244 L566 254"/>
+    ${glider(488,118,1)}${note(428,118,398,100,'end',['an enjoyable','experience'])}
+    <path class="ink" d="M205 286 L600 286 L600 300 L205 300 Z"/>
+    ${[244,350,456,562].map(x => hold(x,450,2.58)).join('')}
+    ${tag(244,482,'guides')}${tag2(350,486,'equipment','checks')}${tag2(456,486,'safety','measures')}${tag(562,482,'coordination')}
+    ${note(null,null,402,534,'middle',['preparation that goes unnoticed'])}
+    ${sep(642,60,434)}
+    ${hd(885,24,'induben')}
+    ${pack(755,267)}${pack(859,281)}${pack(859,251)}${pack(963,267)}${pack(963,237)}${pack(963,207)}
+    <path class="ink faint" d="M768 232 Q846 222 912 172 M896 173 L912 172 L908 188"/>
+    ${note(989,207,989,140,'middle',['products, sales','and a growing brand'])}
+    <path class="ink" d="M682 284 C760 288 820 312 885 312 C950 312 1010 288 1088 284 L1088 298 C1010 302 950 326 885 326 C820 326 760 302 682 298 Z"/>
+    <path class="ink" d="M884 312 L879 317 L887 320 L882 326"/>
+    ${strain(745,450,2.82)}${strain(880,450,2.46)}
+    <path class="ink faint" d="M693 334 l-9 -6 M690 350 l-11 0 M804 334 l9 -6 M806 350 l10 0 M836 348 l-9 -6 M834 362 l-10 0 M930 348 l9 -6 M932 362 l11 0"/>
+    <path class="ink" d="M988 303 L1058 302 L1058 314 L988 314 Z M984 438 L1062 438 L1062 450 L984 450 Z"/>
+    <path class="ink" d="M996 314 L996 438 M1050 314 L1050 438"/>
+    <path class="ink faint" d="M1010 324 L1010 428 M1036 324 L1036 428"/>
+    <path class="ink" d="M1050 346 L1034 358 L1040 372 L1020 384 L1026 400 M1034 358 L1024 352"/>
+    ${tag2(745,486,'shopfloor','workers')}${tag(885,482,'supervisors')}${tag2(1023,486,'production','processes')}
+    ${note(null,null,885,534,'middle',['dealing with their own challenges'])}`,
    take:'A system can look successful while struggling internally.' },
 
- { key:'Views', c:'#b77bff', x:-20, tags:'induben  ·  human behaviour  ·  adventure tourism',
+ { key:'Views', c:'#b77bff', x:77, tags:'induben  ·  human behaviour',
    title:'Every system has multiple truths, and the most important|problems often live in the distance between them',
    base:'M0 450 L1000 450',
    art:`
     <path class="ink" d="M470 200 C452 220 446 250 450 280 C454 322 448 380 430 420 C427 428 419 430 417 423 C431 385 442 345 468 322 L492 318"/>
     ${reach(350,450,2,420,404)}${tag(350,476,'MANAGEMENT')}
     <path class="ink" d="M716 360 C680 372 604 372 568 360"/>
-    ${tag(596,476,'SUPERVISORS')}
+    ${tag(604,476,'SUPERVISORS')}
     <path class="ink" d="M758 262 C778 280 784 310 776 338 M776 338 L770 350 M776 338 L782 350"/>
     ${reach(862,450,2,790,350)}${tag(870,476,'SHOPFLOOR')}
     <path class="ink" d="M470 200 C520 150 700 152 760 250 C772 290 764 320 752 342 L752 450 M716 450 L716 360"/>
@@ -309,40 +331,39 @@ const L = [
     ${note(620,163,620,106,'middle',['targets, managing people','and daily coordination'])}
     ${note(862,334,872,280,'middle',['routines','and workload'])}
     <path class="ink faint" d="M416 475 L532 475 M424 470 L416 475 L424 480 M524 470 L532 475 L524 480 M660 475 L814 475 M668 470 L660 475 L668 480 M806 470 L814 475 L806 480"/>
-    ${note(null,null,607,507,'middle',['growth for management could mean additional workload for a worker'])}
-    <path class="ink" d="M940 450 L1030 290 L1056 330 L1074 308 L1132 450"/>
-    ${figUp(1030,290,.9)}${body(976,386,.9)}${body(1150,450,.9)}
-    ${note(1030,226,1030,190,'middle',['participant'])}
-    ${note(982,358,1022,376,'start',['guide'])}
-    ${note(1150,396,1150,362,'middle',['organiser'])}
-    ${tag(1050,476,'the same activity')}`,
+    ${note(null,null,607,522,'middle',['growth for management could mean additional workload for a worker'])}`,
    take:'Looking at a system from just one position gives us only part of the picture.' },
 
- { key:'Expectation', c:'#ff9b3d', x:2, tags:'induben  ·  belong  ·  brand strategy',
+ { key:'Expectation', c:'#ff9b3d', x:10, tags:'brand strategy',
    title:"A brand doesn't just build a reputation;|it builds an expectation of who it is allowed to become",
    base:'M0 430 L1000 430',
    art:`
+    ${hd(430,76,'induben')}
     <path class="ink" d="M442 300 A78 78 0 0 1 598 300"/><path class="ink faint" d="M442 300 A78 78 0 0 0 598 300"/>
     <path class="ink faint" d="M454 300 A66 66 0 0 1 586 300"/>
     ${[[484,270],[500,250],[520,262],[543,248],[558,272],[512,284],[536,281],[470,288],[572,290],[527,240],[495,288]].map(([x,y]) => `<circle class="dotf" cx="${x}" cy="${y}" r="2"/>`).join('')}
     <path class="ink" d="M424 300 L616 300 L616 430 L424 430 Z"/>
     ${note(null,null,520,412,'middle',['Induben'])}
-    ${note(520,222,520,160,'middle',['people trust it for','homemade Jain khakhra'])}
-    <g transform="rotate(-9 300 330)"><rect class="ink" x="262" y="262" width="82" height="136" rx="5"/><path class="ink" d="M303 262 L303 398 M262 296 L344 296 M262 330 L344 330 M262 364 L344 364"/></g>
-    <path class="ink faint" d="M362 330 L404 330 M396 323 L404 330 L396 337"/>
-    ${note(295,262,290,220,'middle',['chocolates'])}
-    ${note(null,null,430,470,'middle',["people couldn't easily associate chocolates",'with a brand they knew for khakhra'])}
-    <rect class="ink faint" x="700" y="280" width="150" height="150" rx="4"/>
-    <path class="ink" d="${piece(750,330,50,[-1,-1,1,-1])}"/>
-    ${note(775,322,775,230,'middle',['Belong:','complete freedom'])}
-    ${note(null,null,775,470,'middle',['no established trust','or user habits'])}
-    <path class="ink" d="M930 280 L1080 280 L1080 430 L930 430 Z"/>
-    <path class="ink" d="${gridEdges(930,280,50)}"/>
-    <path class="shade" d="${piece(980,330,50,centreSigns)}" style="fill-opacity:.16"/>
-    <path class="ink faint" d="M1116 262 Q1090 340 1034 354 M1044 345 L1034 354 L1047 358"/>
-    <g class="bob loose"><path class="ink" d="${piece(1094,200,50,centreSigns)}"/></g>
-    ${note(970,280,970,230,'middle',['Hinge:','a proven platform'])}
-    ${note(null,null,1005,470,'middle',['every new idea had to work within','existing user expectations'])}`,
+    ${note(520,222,520,150,'middle',['people trust it for','homemade Jain khakhra'])}
+    <g transform="translate(0 24) rotate(-9 300 330)"><rect class="ink" x="262" y="262" width="82" height="136" rx="5"/><path class="ink" d="M303 262 L303 398 M262 296 L344 296 M262 330 L344 330 M262 364 L344 364"/></g>
+    <path class="ink faint" d="M366 346 L406 346 M398 339 L406 346 L398 353"/>
+    ${note(293,287,293,238,'middle',['chocolates'])}
+    ${note(null,null,430,478,'middle',["people couldn't easily associate chocolates",'with a brand they knew for khakhra'])}
+    ${sep(656,110,414)}
+    ${hd(775,76,'belong')}
+    ${note(null,null,775,150,'middle',['complete freedom'])}
+    <rect class="ink faint" x="695" y="200" width="160" height="230" rx="4"/>
+    <path class="ink" d="${piece(750,290,50,[-1,-1,1,-1])}"/>
+    ${note(null,null,775,478,'middle',['no established trust','or user habits'])}
+    ${sep(894,110,414)}
+    ${hd(1010,76,'hinge')}
+    ${note(null,null,1010,150,'middle',['a proven platform'])}
+    <g class="bob loose"><path class="ink" d="${piece(985,190,50,centreSigns)}"/></g>
+    <path class="ink" d="M935 280 L1085 280 L1085 430 L935 430 Z"/>
+    <path class="ink" d="${gridEdges(935,280,50)}"/>
+    <path class="shade" d="${piece(985,330,50,centreSigns)}" style="fill-opacity:.16"/>
+    <path class="ink faint" d="M1010 248 L1010 274 M1004 267 L1010 274 L1016 267"/>
+    ${note(null,null,1010,478,'middle',['every new idea had to work','within existing user','expectations'])}`,
    take:'What makes people trust a brand also shapes what they expect from it.' }
 ];
 const LAST = L.length;   // how many learnings
@@ -410,17 +431,17 @@ L.forEach((d, i) => {
   const tl = d.title.split('|');
   // the statement rises into place word by word as the view arrives (see .stmt)
   let wi = 0;
-  const head = tl.map((l, k) => `<text class="ttl stmt" x="775" y="${776 + k*46}" text-anchor="middle">` +
+  const head = tl.map((l, k) => `<text class="ttl stmt" x="775" y="${782 + k*46}" text-anchor="middle">` +
     `${l}${k === tl.length-1 ? '.' : ''}`.split(' ').map(w => `<tspan style="transition-delay:${(.12 + .07*wi++).toFixed(2)}s">${w} </tspan>`).join('') + `</text>`).join('');
-  d.capY = 776 + tl.length*46 + 2;
+  d.capY = 782 + tl.length*46 + 2;
   if (d.key === 'Views') d.art = `<g class="hopper">${d.art}</g>`;
-  const sc = makeScene(d.c, `<text class="tagt" x="775" y="76" text-anchor="middle" xml:space="preserve">${d.tags}</text>` + head, d, d.base, false);
+  const sc = makeScene(d.c, `<text class="tagt" x="775" y="42" text-anchor="middle" xml:space="preserve">${d.tags}</text>` + head, d, d.base, false);
   // centre the whole drawing (with its notes) on the statement below it
   const art = sc.g.querySelector('g[transform^="translate(200 130)"]');
-  art.setAttribute('transform', `translate(${d.x} ${AY}) scale(${S})`);
+  art.setAttribute('transform', `translate(${d.x} ${AY - 50 - (d.up || 0)}) scale(${S})`);
   sc.g.setAttribute('transform', `translate(${(i+1)*GAP} 0)`);
   const y0 = +d.base.match(/^M0 (\d+)/)[1];
-  sc.ty = W(0, y0)[1]; sc.key = d.key;
+  sc.ty = W(0, y0)[1] - 50 - (d.up || 0);   // drawings sit a little higher, so the words below can breathe sc.key = d.key;
 });
 
 // "thank you" as one continuous line of thread (local units, baseline at 0)
