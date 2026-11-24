@@ -259,6 +259,8 @@ const lady = (x, y, f, job) => `<circle class="ink" cx="${x}" cy="${y-86}" r="11
    : `<rect class="ink" x="${x-20}" y="${y-30}" width="40" height="7" rx="3.5"/><ellipse class="ink" cx="${x}" cy="${y-13}" rx="22" ry="6"/>`) +
   `<path class="ink" d="${P(x,y,1,[['M',-25,-40],['C',-42,-30],['',-42,-6],['',-36,0],['M',25,-40],['C',42,-30],['',42,-6],['',36,0]])}"/>`;
 const khakhra = (x, y, r) => `<circle class="ink" cx="${x}" cy="${y}" r="${r}"/>` + [[-.45,-.3],[.1,-.55],[.5,-.15],[-.1,.05],[-.5,.3],[.35,.4],[0,.58]].map(([a,b]) => `<circle class="dotf" cx="${x+a*r}" cy="${y+b*r}" r="1.7"/>`).join('');
+// a khakhra snapped in two
+const snapped = (x, y, r, t) => `<g transform="translate(${x} ${y}) rotate(${t})"><path class="ink" d="M-4 ${-r} A${r} ${r} 0 0 0 -4 ${r} L2 ${r*.4} L-8 0 L0 ${-r*.45} Z"/><path class="ink" d="M9 ${-r} A${r} ${r} 0 0 1 9 ${r} L15 ${r*.4} L5 0 L13 ${-r*.45} Z"/></g>`;
 const L = [
  { key:'Reason', c:'#3ee8ff', x:14,
    title:'We often mistake the reason something is used|for the reason it was created',
@@ -318,27 +320,29 @@ const L = [
     ${note(null,null,966,534,'middle',['dealing with their own challenges'])}`,
    take:'A system can look successful while struggling internally.' },
 
- { key:'Views', c:'#b77bff', x:77,
+ { key:'Views', c:'#b77bff', x:4,
    title:'Every system has multiple truths — and the most important|problems often live in the distance between them',
    base:'M0 450 L1000 450',
    art:`
-    <path class="ink" d="M470 200 C452 220 446 250 450 280 C454 322 448 380 430 420 C427 428 419 430 417 423 C431 385 442 345 468 322 L492 318"/>
-    ${reach(350,450,2,420,404)}${tag(350,476,'MANAGEMENT')}
-    <path class="ink" d="M716 360 C680 372 604 372 568 360"/>
-    ${tag(604,476,'SUPERVISORS')}
-    <path class="ink" d="M758 262 C778 280 784 310 776 338 M776 338 L770 350 M776 338 L782 350"/>
-    ${reach(862,450,2,790,350)}${tag(870,476,'SHOPFLOOR')}
-    <path class="ink" d="M470 200 C520 150 700 152 760 250 C772 290 764 320 752 342 L752 450 M716 450 L716 360"/>
-    <path class="ink" d="M568 360 L568 450 M528 450 L528 340 C520 330 506 322 492 318"/>
-    <path class="ink" d="M540 204 C590 198 612 240 602 290 C596 312 562 316 550 300 C542 288 540 244 540 204 Z"/>
-    <circle class="ink" cx="498" cy="234" r="3"/><path class="ink" d="M480 316 C492 334 514 338 526 330"/>
-    ${reach(604,450,1.8,571,391).replaceAll('class="ink"', 'class="knock fadeEl"')}${reach(604,450,1.8,571,391)}
-    ${note(null,null,607,30,'middle',['nobody was wrong: they were all describing','the organisation from where they stood'])}
-    ${note(350,334,350,280,'middle',['growth, sales','and partnerships'])}
-    ${note(620,163,620,106,'middle',['targets, managing people','and daily coordination'])}
-    ${note(862,334,872,280,'middle',['routines','and workload'])}
-    <path class="ink faint" d="M416 475 L532 475 M424 470 L416 475 L424 480 M524 470 L532 475 L524 480 M660 475 L814 475 M668 470 L660 475 L668 480 M806 470 L814 475 L806 480"/>
-    ${note(null,null,607,522,'middle',['growth for management could mean additional workload for a worker'])}`,
+    ${note(null,null,670,16,'middle',['nobody was wrong: they were all describing','the organisation from where they stood'])}
+    <path class="ink" d="M130 450 L130 250 L430 250 L430 450"/>
+    ${reach(206,250,2.1,270,196)}
+    <path class="ink faint" d="M296 150 L296 236 L404 236"/><path class="ink" d="M304 224 L330 204 L350 212 L394 164 M380 165 L394 164 L393 178"/>
+    ${note(null,null,280,92,'middle',['growth, sales','and partnerships'])}
+    <path class="ink" d="M520 450 L520 330 L820 330 L820 450"/>
+    ${reach(592,330,2.1,664,276)}
+    <circle class="ink" cx="730" cy="270" r="44"/><circle class="ink" cx="730" cy="270" r="28"/><circle class="ink" cx="730" cy="270" r="11"/><path class="ink" d="M710 310 L700 330 M750 310 L760 330"/>
+    ${note(null,null,670,172,'middle',['targets, managing people','and daily coordination'])}
+    <path class="ink" d="M910 450 L910 410 L1210 410 L1210 450"/>
+    <g transform="translate(1000 410) scale(1.3)">${lady(0,0,-1,'roll')}</g>
+    ${Array.from({length:15},(_,k) => `<ellipse class="ink" cx="${1132 + [0,3,-2,4,1,-3,2,5,0,-2,3,6,2,5,8][k]}" cy="${402 - k*10}" rx="34" ry="7"/>`).join('')}
+    ${note(null,null,1060,206,'middle',['routines','and workload'])}
+    ${snapped(474,300,19,-24)}${snapped(478,418,19,78)}
+    ${snapped(864,366,19,28)}${snapped(868,423,19,-82)}
+    <path class="thr" d="M438 362 L512 362 M447 356 L438 362 L447 368 M503 356 L512 362 L503 368"/>
+    <path class="thr" d="M828 318 L902 318 M837 312 L828 318 L837 324 M893 312 L902 318 L893 324"/>
+    ${tag(280,482,'management')}${tag(475,482,'the distance')}${tag(670,482,'supervisors')}${tag(865,482,'the distance')}${tag(1060,482,'shopfloor')}
+    ${note(null,null,670,528,'middle',['growth for management could mean additional workload for a worker'])}`,
    take:'Looking at a system from just one position gives us only part of the picture.' },
 
  { key:'Expectation', c:'#ff9b3d', x:30,
