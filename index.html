@@ -249,66 +249,70 @@ const strain = (x, y, s) => `<circle class="ink" cx="${x+4*s}" cy="${y-41*s}" r=
 const hd = (x, y, t) => `<text class="hd fadeEl" x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
 const sep = (x, y1, y2) => `<path class="ink sep" d="M${x} ${y1} L${x} ${y2}"/>`;
 const tag2 = (x, y, a, b) => `<text class="tagt" x="${x}" y="${y}" text-anchor="middle"><tspan x="${x}">${a}</tspan><tspan x="${x}" dy="19">${b}</tspan></text>`;
+// a lady sitting on the floor, rolling a khakhra on her board
+const lady = (x, y, f) => `<circle class="ink" cx="${x}" cy="${y-86}" r="11"/><circle class="ink" cx="${x+f*11}" cy="${y-95}" r="5"/>` +
+  `<path class="ink" d="${P(x,y,1,[['M',-13,-70],['Q',0,-78],['',13,-70],['L',15,-42],['M',-13,-70],['L',-15,-42]])}"/>` +
+  `<path class="ink faint" d="M${x+f*13} ${y-70} L${x-f*14} ${y-46}"/>` +
+  `<path class="ink" d="${P(x,y,1,[['M',-13,-68],['L',-27,-46],['L',-20,-27],['M',13,-68],['L',27,-46],['L',20,-27]])}"/>` +
+  `<rect class="ink" x="${x-20}" y="${y-30}" width="40" height="7" rx="3.5"/>` +
+  `<ellipse class="ink" cx="${x}" cy="${y-13}" rx="22" ry="6"/>` +
+  `<path class="ink" d="${P(x,y,1,[['M',-25,-40],['C',-42,-30],['',-42,-6],['',-36,0],['M',25,-40],['C',42,-30],['',42,-6],['',36,0]])}"/>`;
+const khakhra = (x, y, r) => `<circle class="ink" cx="${x}" cy="${y}" r="${r}"/>` + [[-.45,-.3],[.1,-.55],[.5,-.15],[-.1,.05],[-.5,.3],[.35,.4],[0,.58]].map(([a,b]) => `<circle class="dotf" cx="${x+a*r}" cy="${y+b*r}" r="1.7"/>`).join('');
 const L = [
- { key:'Reason', c:'#3ee8ff', x:18, tags:'human behaviour',
+ { key:'Reason', c:'#3ee8ff', x:14, tags:'human behaviour',
    title:'We often mistake the reason something is used|for the reason it was created',
    base:'M0 440 L1000 440',
    art:`
-    ${hd(332,4,'adventure tourism')}
-    <path class="ink" d="M205 440 L315 210 L346 262 L372 232 L460 440"/>
-    ${hold(315,210,1)}${note(315,146,284,106,'middle',['to challenge themselves'])}
-    ${glider(424,120,.62)}${note(424,84,424,58,'middle',['to seek a thrill'])}
-    ${body(315,440,1.1)}${body(351,440,1.1)}<path class="ink" d="M315 402 L333 414 L351 402"/>
-    ${note(333,382,333,346,'middle',['with their friends'])}
-    ${tag(332,478,'the same adventure')}
-    ${sep(488,40,424)}
-    ${hd(688,4,'belong')}
-    <rect class="ink" x="516" y="190" width="104" height="246" rx="18"/><path class="ink" d="M552 204 L584 204"/>
-    <path class="ink" d="M568 342 C542 322 527 304 540 290 C551 280 568 286 568 300 C568 286 585 280 596 290 C609 304 594 322 568 342 Z"/>
-    ${note(568,190,568,132,'middle',['platforms','for romance'])}
-    ${[['rant to someone',196],['share random thoughts',278],['talk without being judged',360]].map(([t,y]) => `<rect class="ink" x="636" y="${y}" width="226" height="46" rx="23"/><path class="ink" d="M656 ${y+46} L642 ${y+60} L676 ${y+46}"/>${note(null,null,749,y+29,'middle',[t])}`).join('')}
-    ${tag(688,478,'what they were actually seeking')}
-    ${sep(888,40,424)}
-    ${hd(1013,4,'belong prototype')}
-    ${note(null,null,1013,90,'middle',['the same','music-based activity'])}
-    <ellipse class="ink" cx="992" cy="190" rx="9" ry="7"/><ellipse class="ink" cx="1024" cy="182" rx="9" ry="7"/><path class="ink" d="M1001 190 L1001 148 L1033 140 L1033 182"/>
-    <path class="ink faint" d="M994 214 L958 256 M1032 214 L1068 256"/>
-    ${tag(954,282,'studio')}${tag(1072,282,'open lawn')}
-    <path class="ink" d="M910 440 L910 306 L998 306 L998 440"/>
-    ${body(932,440,1.1)}${body(976,440,1.1)}
-    <path class="ink" d="M932 402 L925 420 M976 402 L983 420"/>
-    ${hold(1054,440,1.1)}${hold(1092,440,1.1)}
-    <path class="ink" d="M1026 440 l5 -12 M1116 440 l-4 -11"/>
-    ${tag(1013,478,'very different responses')}`,
+    ${hd(250,14,'adventure tourism')}
+    <path class="ink" d="M100 440 L240 224 L286 284 L316 254 L400 440"/>
+    ${hold(240,224,1)}${note(240,160,206,122,'middle',['to challenge themselves'])}
+    ${glider(392,142,.62)}${note(392,106,392,80,'middle',['to seek a thrill'])}
+    ${body(232,440,1.1)}${body(268,440,1.1)}<path class="ink" d="M232 402 L250 414 L268 402"/>
+    ${note(250,382,250,348,'middle',['with their friends'])}
+    ${tag(250,480,'the same adventure')}
+    ${sep(478,60,420)}
+    ${hd(708,14,'hinge')}
+    <rect class="ink" x="536" y="200" width="104" height="236" rx="18"/><path class="ink" d="M572 214 L604 214"/>
+    <path class="ink" d="M588 346 C562 326 547 308 560 294 C571 284 588 290 588 304 C588 290 605 284 616 294 C629 308 614 326 588 346 Z"/>
+    ${note(588,200,588,144,'middle',['platforms','for romance'])}
+    ${[['rant to someone',200],['share random thoughts',281],['talk without being judged',362]].map(([t,y]) => `<rect class="ink" x="668" y="${y}" width="220" height="44" rx="22"/><path class="ink" d="M688 ${y+44} L676 ${y+57} L706 ${y+44}"/>${note(null,null,778,y+28,'middle',[t])}`).join('')}
+    ${tag(708,480,'what they were actually seeking')}
+    ${sep(946,60,420)}
+    ${hd(1104,14,'belong')}
+    ${note(null,null,1104,100,'middle',['the same','music-based activity'])}
+    <ellipse class="ink" cx="1083" cy="196" rx="9" ry="7"/><ellipse class="ink" cx="1115" cy="188" rx="9" ry="7"/><path class="ink" d="M1092 196 L1092 154 L1124 146 L1124 188"/>
+    <path class="ink faint" d="M1078 220 L1046 256 M1130 220 L1162 256"/>
+    ${tag(1030,282,'studio')}${tag(1178,282,'open lawn')}
+    <path class="ink" d="M984 440 L984 308 L1076 308 L1076 440"/>
+    ${body(1006,440,1.1)}${body(1054,440,1.1)}
+    <path class="ink" d="M1006 402 L999 420 M1054 402 L1061 420"/>
+    ${hold(1156,440,1.1)}${hold(1200,440,1.1)}
+    ${tag(1104,480,'very different responses')}`,
    take:"The purpose of a service doesn't always define its value to the people using it." },
 
- { key:'Surface', c:'#ffe14d', x:31, up:26, tags:'',
+ { key:'Surface', c:'#ffe14d', x:10, up:26, tags:'',
    title:'The better something works on the surface,|the easier it is to overlook what is struggling underneath',
    base:'M0 450 L1000 450',
    art:`
-    ${hd(402,24,'adventure tourism')}
-    <path class="ink faint" d="M220 286 L292 196 L326 228 L372 164 L456 286"/>
-    <path class="ink" d="M566 286 L566 236 L596 244 L566 254"/>
-    ${glider(488,118,1)}${note(428,118,398,100,'end',['an enjoyable','experience'])}
-    <path class="ink" d="M205 286 L600 286 L600 300 L205 300 Z"/>
-    ${[244,350,456,562].map(x => hold(x,450,2.58)).join('')}
-    ${tag(244,482,'guides')}${tag2(350,486,'equipment','checks')}${tag2(456,486,'safety','measures')}${tag(562,482,'coordination')}
-    ${note(null,null,402,534,'middle',['preparation that goes unnoticed'])}
-    ${sep(642,60,434)}
-    ${hd(885,24,'induben')}
-    ${pack(755,267)}${pack(859,281)}${pack(859,251)}${pack(963,267)}${pack(963,237)}${pack(963,207)}
-    <path class="ink faint" d="M768 232 Q846 222 912 172 M896 173 L912 172 L908 188"/>
-    ${note(989,207,989,140,'middle',['products, sales','and a growing brand'])}
-    <path class="ink" d="M682 284 C760 288 820 312 885 312 C950 312 1010 288 1088 284 L1088 298 C1010 302 950 326 885 326 C820 326 760 302 682 298 Z"/>
-    <path class="ink" d="M884 312 L879 317 L887 320 L882 326"/>
-    ${strain(745,450,2.82)}${strain(880,450,2.46)}
-    <path class="ink faint" d="M693 334 l-9 -6 M690 350 l-11 0 M804 334 l9 -6 M806 350 l10 0 M836 348 l-9 -6 M834 362 l-10 0 M930 348 l9 -6 M932 362 l11 0"/>
-    <path class="ink" d="M988 303 L1058 302 L1058 314 L988 314 Z M984 438 L1062 438 L1062 450 L984 450 Z"/>
-    <path class="ink" d="M996 314 L996 438 M1050 314 L1050 438"/>
-    <path class="ink faint" d="M1010 324 L1010 428 M1036 324 L1036 428"/>
-    <path class="ink" d="M1050 346 L1034 358 L1040 372 L1020 384 L1026 400 M1034 358 L1024 352"/>
-    ${tag2(745,486,'shopfloor','workers')}${tag(885,482,'supervisors')}${tag2(1023,486,'production','processes')}
-    ${note(null,null,885,534,'middle',['dealing with their own challenges'])}`,
+    ${hd(345,24,'adventure tourism')}
+    <path class="ink faint" d="M140 286 L222 190 L260 226 L314 162 L406 286"/>
+    <path class="ink" d="M556 286 L556 236 L586 244 L556 254"/>
+    ${glider(462,118,1)}${note(402,118,372,100,'end',['an enjoyable','experience'])}
+    <path class="ink" d="M100 286 L590 286 L590 300 L100 300 Z"/>
+    ${[152,281,409,538].map(x => hold(x,450,2.58)).join('')}
+    ${tag(152,482,'guides')}${tag2(281,486,'equipment','checks')}${tag2(409,486,'safety','measures')}${tag(538,482,'coordination')}
+    ${note(null,null,345,534,'middle',['preparation that goes unnoticed'])}
+    ${sep(645,60,434)}
+    ${hd(965,24,'induben')}
+    ${khakhra(834,266,20)}${khakhra(965,269,30)}${khakhra(1096,246,40)}
+    <path class="ink faint" d="M832 226 Q924 212 996 160 M979 162 L996 160 L992 176"/>
+    ${note(1096,206,1096,138,'middle',['products, sales','and a growing brand'])}
+    <path class="ink" d="M696 272 C800 276 870 299 965 299 C1060 299 1130 276 1234 272 L1234 286 C1130 290 1060 313 965 313 C870 313 800 290 696 286 Z"/>
+    ${strain(740,450,3.18)}${strain(1180,450,3.18)}
+    <path class="ink faint" d="M686 324 l-10 -6 M684 340 l-12 0 M1242 324 l10 -6 M1244 340 l10 0"/>
+    ${[[859,1],[965,-1],[1071,1]].map(([x,f]) => `<g transform="translate(${x} 450) scale(1.24)">${lady(0,0,f)}</g>`).join('')}
+    ${tag(740,482,'supervisors')}${tag2(965,486,'shopfloor workers','production processes')}${tag(1180,482,'supervisors')}
+    ${note(null,null,965,534,'middle',['dealing with their own challenges'])}`,
    take:'A system can look successful while struggling internally.' },
 
  { key:'Views', c:'#b77bff', x:77, tags:'induben  ·  human behaviour',
@@ -334,36 +338,35 @@ const L = [
     ${note(null,null,607,522,'middle',['growth for management could mean additional workload for a worker'])}`,
    take:'Looking at a system from just one position gives us only part of the picture.' },
 
- { key:'Expectation', c:'#ff9b3d', x:10, tags:'brand strategy',
+ { key:'Expectation', c:'#ff9b3d', x:30, tags:'brand strategy',
    title:"A brand doesn't just build a reputation;|it builds an expectation of who it is allowed to become",
    base:'M0 430 L1000 430',
    art:`
-    ${hd(430,76,'induben')}
-    <path class="ink" d="M442 300 A78 78 0 0 1 598 300"/><path class="ink faint" d="M442 300 A78 78 0 0 0 598 300"/>
-    <path class="ink faint" d="M454 300 A66 66 0 0 1 586 300"/>
-    ${[[484,270],[500,250],[520,262],[543,248],[558,272],[512,284],[536,281],[470,288],[572,290],[527,240],[495,288]].map(([x,y]) => `<circle class="dotf" cx="${x}" cy="${y}" r="2"/>`).join('')}
-    <path class="ink" d="M424 300 L616 300 L616 430 L424 430 Z"/>
-    ${note(null,null,520,412,'middle',['Induben'])}
-    ${note(520,222,520,150,'middle',['people trust it for','homemade Jain khakhra'])}
-    <g transform="translate(0 24) rotate(-9 300 330)"><rect class="ink" x="262" y="262" width="82" height="136" rx="5"/><path class="ink" d="M303 262 L303 398 M262 296 L344 296 M262 330 L344 330 M262 364 L344 364"/></g>
-    <path class="ink faint" d="M366 346 L406 346 M398 339 L406 346 L398 353"/>
-    ${note(293,287,293,238,'middle',['chocolates'])}
-    ${note(null,null,430,478,'middle',["people couldn't easily associate chocolates",'with a brand they knew for khakhra'])}
-    ${sep(656,110,414)}
-    ${hd(775,76,'belong')}
-    ${note(null,null,775,150,'middle',['complete freedom'])}
-    <rect class="ink faint" x="695" y="200" width="160" height="230" rx="4"/>
-    <path class="ink" d="${piece(750,290,50,[-1,-1,1,-1])}"/>
-    ${note(null,null,775,478,'middle',['no established trust','or user habits'])}
-    ${sep(894,110,414)}
-    ${hd(1010,76,'hinge')}
-    ${note(null,null,1010,150,'middle',['a proven platform'])}
-    <g class="bob loose"><path class="ink" d="${piece(985,190,50,centreSigns)}"/></g>
-    <path class="ink" d="M935 280 L1085 280 L1085 430 L935 430 Z"/>
-    <path class="ink" d="${gridEdges(935,280,50)}"/>
-    <path class="shade" d="${piece(985,330,50,centreSigns)}" style="fill-opacity:.16"/>
-    <path class="ink faint" d="M1010 248 L1010 274 M1004 267 L1010 274 L1016 267"/>
-    ${note(null,null,1010,478,'middle',['every new idea had to work','within existing user','expectations'])}`,
+    ${hd(310,76,'induben')}
+    <path class="ink" d="M342 300 A78 78 0 0 1 498 300"/><path class="ink faint" d="M342 300 A78 78 0 0 0 498 300"/>
+    <path class="ink faint" d="M354 300 A66 66 0 0 1 486 300"/>
+    ${[[384,270],[400,250],[420,262],[443,248],[458,272],[412,284],[436,281],[370,288],[472,290],[427,240],[395,288]].map(([x,y]) => `<circle class="dotf" cx="${x}" cy="${y}" r="2"/>`).join('')}
+    <path class="ink" d="M324 300 L516 300 L516 430 L324 430 Z"/>
+    ${note(null,null,420,412,'middle',['Induben'])}
+    ${note(420,222,420,150,'middle',['people trust it for','homemade Jain khakhra'])}
+    <g transform="translate(-150 24) rotate(-9 300 330)"><rect class="ink" x="262" y="262" width="82" height="136" rx="5"/><path class="ink" d="M303 262 L303 398 M262 296 L344 296 M262 330 L344 330 M262 364 L344 364"/></g>
+    <path class="ink faint" d="M226 346 L290 346 M282 339 L290 346 L282 353"/>
+    ${note(143,287,143,238,'middle',['chocolates'])}
+    ${note(null,null,310,478,'middle',["people couldn't easily associate chocolates",'with a brand they knew for khakhra'])}
+    ${sep(604,110,414)}
+    ${hd(770,76,'belong')}
+    ${note(null,null,770,150,'middle',['complete freedom'])}
+    <rect class="ink faint" x="690" y="200" width="160" height="230" rx="4"/>
+    <path class="ink" d="${piece(745,290,50,[-1,-1,1,-1])}"/>
+    ${note(null,null,770,478,'middle',['no established trust','or user habits'])}
+    ${hd(1070,76,'hinge')}
+    ${note(null,null,1070,150,'middle',['a proven platform'])}
+    <g class="bob loose"><path class="ink" d="${piece(1045,190,50,centreSigns)}"/></g>
+    <path class="ink" d="M995 280 L1145 280 L1145 430 L995 430 Z"/>
+    <path class="ink" d="${gridEdges(995,280,50)}"/>
+    <path class="shade" d="${piece(1045,330,50,centreSigns)}" style="fill-opacity:.16"/>
+    <path class="ink faint" d="M1070 248 L1070 274 M1064 267 L1070 274 L1076 267"/>
+    ${note(null,null,1070,478,'middle',['every new idea had to work within','existing user expectations'])}`,
    take:'What makes people trust a brand also shapes what they expect from it.' }
 ];
 const LAST = L.length;   // how many learnings
@@ -514,15 +517,16 @@ const END = scenes.length - 1;
 const threadPiece = d => { const r = roughen(el('path', {class:'conn', d}, connLayer)); prepLine(r); return {e:r, draw:true, on:false}; };
 // one smooth, unhurried curve: almost level where a drawing stands on it, free to drift between drawings
 const ease = t => t*t*(3 - 2*t);
+const TL = i => i ? 110 : 250, TR = i => i ? 1440 : 1300;   // where the thread starts and ends under each drawing
 function flowY(x){
-  const i = Math.max(0, Math.min(LAST, Math.floor((x - 250) / GAP)));
+  const i = Math.max(0, Math.min(LAST, Math.floor((x - 110) / GAP)));
   const lx = x - i*GAP, y = scenes[i].ty;
-  if (lx <= 1300){
+  if (lx <= TR(i)){
     // under a drawing: a barely-there swell, so it reads as ground but not as a ruler
-    const t = Math.max(0, Math.min(1, (lx - 250) / 1050));
+    const t = Math.max(0, Math.min(1, (lx - TL(i)) / (TR(i) - TL(i))));
     return y + 5*Math.sin(t*Math.PI*1.5 + i) * Math.sin(t*Math.PI)**2;
   }
-  const t = (lx - 1300) / 550;
+  const t = (lx - TR(i)) / (GAP + 110 - TR(i));
   if (i === LAST) return y + 26*Math.sin(t*Math.PI*.9)*Math.sin(t*Math.PI*1.6) - 14*ease(Math.min(1, t));   // loose end drifts off
   const y2 = scenes[i+1].ty, dir = i % 2 ? -1 : 1;
   // between drawings: a slow S, like a ribbon carried from one place to the next
@@ -532,9 +536,9 @@ function flowY(x){
 const flowPath = (a, b) => { let d = ''; for (let x = a; x < b; x += 6) d += `${d ? ' L' : 'M'}${x.toFixed(0)} ${flowY(x).toFixed(1)}`; return d + ` L${b} ${flowY(b).toFixed(1)}`; };
 const seg = [], link = [];
 for (let i = 0; i <= LAST; i++){
-  seg.push(threadPiece(flowPath(i ? i*GAP + 250 : -60, i*GAP + 1300)));
-  if (i < LAST) link.push(threadPiece(flowPath(i*GAP + 1300, (i+1)*GAP + 250)));
-  else link.push(threadPiece(flowPath(i*GAP + 1300, i*GAP + 1560)));   // a loose end
+  seg.push(threadPiece(flowPath(i ? i*GAP + 110 : -60, i*GAP + TR(i))));
+  if (i < LAST) link.push(threadPiece(flowPath(i*GAP + TR(i), (i+1)*GAP + 110)));
+  else link.push(threadPiece(flowPath(i*GAP + TR(i), i*GAP + 1600)));   // a loose end
 }
 
 // everything that makes up the journey lives in one group, so an ending can reflect it, fold it or unravel it
@@ -602,8 +606,8 @@ const JURY = `
       : body(x, 450, 1.7) + `<path class="ink" d="M${x} ${(450-34*1.7).toFixed(1)} L${x-13} ${(450-14*1.7).toFixed(1)} M${x} ${(450-34*1.7).toFixed(1)} L${x+13} ${(450-14*1.7).toFixed(1)}"/>`).join('')}`;
 const jury = makeScene('#fff', '', {art:JURY, take:'', capY:0}, '', false);
 scenes.pop(); endLayer.appendChild(jury.g); jury.g.setAttribute('transform', `translate(${END*GAP} 0)`);
-const JY = AY + 450*S, jx0 = LAST*GAP + 1300, jy0 = flowY(jx0), jx1 = END*GAP + 250;
-const linkC = threadPiece(`M${jx0} ${jy0.toFixed(1)} C${jx0 + 220} ${jy0.toFixed(1)} ${jx1 - 220} ${JY} ${jx1} ${JY}`);
+const JY = AY + 450*S, jx0 = LAST*GAP + TR(LAST), jy0 = flowY(jx0), jx1 = END*GAP + 250;
+const linkC = threadPiece(`M${jx0} ${jy0.toFixed(1)} C${jx0 + 170} ${jy0.toFixed(1)} ${jx1 - 170} ${JY} ${jx1} ${JY}`);
 const segC = threadPiece(`M${jx1} ${JY} L${END*GAP + 1300} ${JY}`);
 
 function fly(){
