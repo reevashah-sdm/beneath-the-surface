@@ -296,7 +296,7 @@ const L = [
     ${note(null,null,490,480,'middle',['the exact same prototype'])}`,
    take:'"Don\'t blame the flower, blame the environment."' },
 
- { key:'Views', c:'#b77bff', title:'Where you stand decides what you see',
+ { key:'Views', drop:28, c:'#b77bff', title:'Where you stand decides what you see',
    base:'M0 450 L1000 450',
    art:`
     <path class="ink" d="M470 200 C452 220 446 250 450 280 C454 322 448 380 430 420 C427 428 419 430 417 423 C431 385 442 345 468 322 L492 318"/>
@@ -399,9 +399,9 @@ L.forEach((d, i) => {
   const tl = wrap(d.title.replace('|', ' '), 72);
   // the statement rises into place word by word as the view arrives (see .stmt)
   let wi = 0;
-  const head = tl.map((l, k) => `<text class="ttl stmt" x="775" y="${768 + k*46}" text-anchor="middle">` +
+  const head = tl.map((l, k) => `<text class="ttl stmt" x="775" y="${768 + (d.drop || 0) + k*46}" text-anchor="middle">` +
     `${l}${k === tl.length-1 ? '.' : ''}`.split(' ').map(w => `<tspan style="transition-delay:${(.12 + .07*wi++).toFixed(2)}s">${w} </tspan>`).join('') + `</text>`).join('');
-  d.capY = 768 + tl.length*46 + 4;
+  d.capY = 768 + (d.drop || 0) + tl.length*46 + 4;
   if (d.key === 'Views') d.art = `<g class="hopper">${d.art}</g>`;
   const sc = makeScene(d.c, head, d, d.base, false);
   // centre the whole drawing (with its notes) on the statement below it
