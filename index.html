@@ -260,7 +260,7 @@ const lady = (x, y, f, job) => `<circle class="ink" cx="${x}" cy="${y-86}" r="11
   `<path class="ink" d="${P(x,y,1,[['M',-25,-40],['C',-42,-30],['',-42,-6],['',-36,0],['M',25,-40],['C',42,-30],['',42,-6],['',36,0]])}"/>`;
 const khakhra = (x, y, r) => `<circle class="ink" cx="${x}" cy="${y}" r="${r}"/>` + [[-.45,-.3],[.1,-.55],[.5,-.15],[-.1,.05],[-.5,.3],[.35,.4],[0,.58]].map(([a,b]) => `<circle class="dotf" cx="${x+a*r}" cy="${y+b*r}" r="1.7"/>`).join('');
 const L = [
- { key:'Reason', c:'#3ee8ff', x:14, tags:'human behaviour',
+ { key:'Reason', c:'#3ee8ff', x:14,
    title:'We often mistake the reason something is used|for the reason it was created',
    base:'M0 440 L1000 440',
    art:`
@@ -291,7 +291,7 @@ const L = [
     ${tag(1104,480,'very different responses')}`,
    take:"The purpose of a service doesn’t always define its value to the people using it." },
 
- { key:'Surface', c:'#ffe14d', x:10, up:26, tags:'',
+ { key:'Surface', c:'#ffe14d', x:10, up:26,
    title:'The better something works on the surface,|the easier it is to overlook what is struggling underneath',
    base:'M0 450 L1000 450',
    art:`
@@ -318,7 +318,7 @@ const L = [
     ${note(null,null,966,534,'middle',['dealing with their own challenges'])}`,
    take:'A system can look successful while struggling internally.' },
 
- { key:'Views', c:'#b77bff', x:77, tags:'induben  ·  human behaviour',
+ { key:'Views', c:'#b77bff', x:77,
    title:'Every system has multiple truths — and the most important|problems often live in the distance between them',
    base:'M0 450 L1000 450',
    art:`
@@ -341,7 +341,7 @@ const L = [
     ${note(null,null,607,522,'middle',['growth for management could mean additional workload for a worker'])}`,
    take:'Looking at a system from just one position gives us only part of the picture.' },
 
- { key:'Expectation', c:'#ff9b3d', x:30, tags:'brand strategy',
+ { key:'Expectation', c:'#ff9b3d', x:30,
    title:"A brand doesn’t just build a reputation;|it builds an expectation of who it is allowed to become",
    base:'M0 430 L1000 430',
    art:`
@@ -441,7 +441,7 @@ L.forEach((d, i) => {
     `${l}${k === tl.length-1 ? '.' : ''}`.split(' ').map(w => `<tspan style="transition-delay:${(.12 + .07*wi++).toFixed(2)}s">${w} </tspan>`).join('') + `</text>`).join('');
   d.capY = 782 + tl.length*46 + 2;
   if (d.key === 'Views') d.art = `<g class="hopper">${d.art}</g>`;
-  const sc = makeScene(d.c, `<text class="tagt" x="775" y="42" text-anchor="middle" xml:space="preserve">${d.tags}</text>` + head, d, d.base, false);
+  const sc = makeScene(d.c, head, d, d.base, false);
   // centre the whole drawing (with its notes) on the statement below it
   const art = sc.g.querySelector('g[transform^="translate(200 130)"]');
   art.setAttribute('transform', `translate(${d.x} ${AY - 50 - (d.up || 0)}) scale(${S})`);
