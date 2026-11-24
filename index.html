@@ -250,12 +250,13 @@ const hd = (x, y, t) => `<text class="hd fadeEl" x="${x}" y="${y}" text-anchor="
 const sep = (x, y1, y2) => `<path class="ink sep" d="M${x} ${y1} L${x} ${y2}"/>`;
 const tag2 = (x, y, a, b) => `<text class="tagt" x="${x}" y="${y}" text-anchor="middle"><tspan x="${x}">${a}</tspan><tspan x="${x}" dy="19">${b}</tspan></text>`;
 // a lady sitting on the floor, rolling a khakhra on her board
-const lady = (x, y, f) => `<circle class="ink" cx="${x}" cy="${y-86}" r="11"/><circle class="ink" cx="${x+f*11}" cy="${y-95}" r="5"/>` +
+const lady = (x, y, f, job) => `<circle class="ink" cx="${x}" cy="${y-86}" r="11"/><circle class="ink" cx="${x+f*15}" cy="${y-84}" r="5"/>` +
   `<path class="ink" d="${P(x,y,1,[['M',-13,-70],['Q',0,-78],['',13,-70],['L',15,-42],['M',-13,-70],['L',-15,-42]])}"/>` +
   `<path class="ink faint" d="M${x+f*13} ${y-70} L${x-f*14} ${y-46}"/>` +
   `<path class="ink" d="${P(x,y,1,[['M',-13,-68],['L',-27,-46],['L',-20,-27],['M',13,-68],['L',27,-46],['L',20,-27]])}"/>` +
-  `<rect class="ink" x="${x-20}" y="${y-30}" width="40" height="7" rx="3.5"/>` +
-  `<ellipse class="ink" cx="${x}" cy="${y-13}" rx="22" ry="6"/>` +
+  (job === 'roast' ? `<ellipse class="ink" cx="${x}" cy="${y-25}" rx="24" ry="6"/><ellipse class="ink faint" cx="${x}" cy="${y-26}" rx="15" ry="3.4"/><path class="ink" d="${P(x,y,1,[['M',-12,-2],['Q',-17,-9],['',-11,-16],['Q',-7,-9],['',-12,-2],['M',0,-2],['Q',-5,-9],['',1,-16],['Q',5,-9],['',0,-2],['M',12,-2],['Q',7,-9],['',13,-16],['Q',17,-9],['',12,-2]])}"/>`
+   : job === 'stack' ? [-6,-12,-18,-24].map(k => `<ellipse class="ink" cx="${x}" cy="${y+k}" rx="20" ry="5"/>`).join('')
+   : `<rect class="ink" x="${x-20}" y="${y-30}" width="40" height="7" rx="3.5"/><ellipse class="ink" cx="${x}" cy="${y-13}" rx="22" ry="6"/>`) +
   `<path class="ink" d="${P(x,y,1,[['M',-25,-40],['C',-42,-30],['',-42,-6],['',-36,0],['M',25,-40],['C',42,-30],['',42,-6],['',36,0]])}"/>`;
 const khakhra = (x, y, r) => `<circle class="ink" cx="${x}" cy="${y}" r="${r}"/>` + [[-.45,-.3],[.1,-.55],[.5,-.15],[-.1,.05],[-.5,.3],[.35,.4],[0,.58]].map(([a,b]) => `<circle class="dotf" cx="${x+a*r}" cy="${y+b*r}" r="1.7"/>`).join('');
 const L = [
@@ -303,16 +304,16 @@ const L = [
     ${tag(152,482,'guides')}${tag2(281,486,'equipment','checks')}${tag2(409,486,'safety','measures')}${tag(538,482,'coordination')}
     ${note(null,null,345,534,'middle',['preparation that goes unnoticed'])}
     ${sep(645,60,434)}
-    ${hd(965,24,'induben')}
-    ${khakhra(834,266,20)}${khakhra(965,269,30)}${khakhra(1096,246,40)}
-    <path class="ink faint" d="M832 226 Q924 212 996 160 M979 162 L996 160 L992 176"/>
-    ${note(1096,206,1096,138,'middle',['products, sales','and a growing brand'])}
-    <path class="ink" d="M696 272 C800 276 870 299 965 299 C1060 299 1130 276 1234 272 L1234 286 C1130 290 1060 313 965 313 C870 313 800 290 696 286 Z"/>
-    ${strain(740,450,3.18)}${strain(1180,450,3.18)}
-    <path class="ink faint" d="M686 324 l-10 -6 M684 340 l-12 0 M1242 324 l10 -6 M1244 340 l10 0"/>
-    ${[[859,1],[965,-1],[1071,1]].map(([x,f]) => `<g transform="translate(${x} 450) scale(1.24)">${lady(0,0,f)}</g>`).join('')}
-    ${tag(740,482,'supervisors')}${tag2(965,486,'shopfloor workers,','production processes')}${tag(1180,482,'supervisors')}
-    ${note(null,null,965,534,'middle',['dealing with their own challenges'])}`,
+    ${hd(972,24,'induben')}
+    ${khakhra(834,291,20)}${khakhra(972,286,30)}${khakhra(1110,271,40)}
+    <path class="ink faint" d="M834 250 Q932 236 1012 180 M995 182 L1012 180 L1008 196"/>
+    ${note(1110,231,1110,158,'middle',['products, sales','and a growing brand'])}
+    <path class="ink" d="M698 307 C800 309 880 316 972 316 C1064 316 1150 309 1246 307 L1246 321 C1150 323 1064 330 972 330 C880 330 800 323 698 321 Z"/>
+    ${[[762,-1,'roll'],[876,1,'roll'],[1068,-1,'roast'],[1182,1,'stack']].map(([x,f,j]) => `<g transform="translate(${x} 450) scale(1.26)">${lady(0,0,f,j)}</g>`).join('')}
+    ${strain(970,450,2.4)}
+    <path class="ink faint" d="M922 346 l-9 -6 M920 360 l-10 0 M1024 346 l9 -6 M1026 360 l10 0"/>
+    ${tag(819,482,'shopfloor workers')}${tag(972,482,'supervisors')}${tag(1125,482,'production processes')}
+    ${note(null,null,972,534,'middle',['dealing with their own challenges'])}`,
    take:'A system can look successful while struggling internally.' },
 
  { key:'Views', c:'#b77bff', x:77, tags:'induben  ·  human behaviour',
