@@ -259,8 +259,12 @@ const lady = (x, y, f, job) => `<circle class="ink" cx="${x}" cy="${y-86}" r="11
    : `<rect class="ink" x="${x-20}" y="${y-30}" width="40" height="7" rx="3.5"/><ellipse class="ink" cx="${x}" cy="${y-13}" rx="22" ry="6"/>`) +
   `<path class="ink" d="${P(x,y,1,[['M',-25,-40],['C',-42,-30],['',-42,-6],['',-36,0],['M',25,-40],['C',42,-30],['',42,-6],['',36,0]])}"/>`;
 const khakhra = (x, y, r) => `<circle class="ink" cx="${x}" cy="${y}" r="${r}"/>` + [[-.45,-.3],[.1,-.55],[.5,-.15],[-.1,.05],[-.5,.3],[.35,.4],[0,.58]].map(([a,b]) => `<circle class="dotf" cx="${x+a*r}" cy="${y+b*r}" r="1.7"/>`).join('');
-// a khakhra snapped in two
-const snapped = (x, y, r, t) => `<g transform="translate(${x} ${y}) rotate(${t})"><path class="ink" d="M-4 ${-r} A${r} ${r} 0 0 0 -4 ${r} L2 ${r*.4} L-8 0 L0 ${-r*.45} Z"/><path class="ink" d="M9 ${-r} A${r} ${r} 0 0 1 9 ${r} L15 ${r*.4} L5 0 L13 ${-r*.45} Z"/></g>`;
+// a person from the shoulders up, a tin can, and a thread that tangles on its way
+const bust = x => `<circle class="ink" cx="${x}" cy="270" r="40"/><circle class="dotf" cx="${x-13}" cy="270" r="2.6"/><circle class="dotf" cx="${x+13}" cy="270" r="2.6"/><path class="ink" d="M${x-9} 288 Q${x} 293 ${x+9} 288"/><path class="ink" d="M${x-16} 307 L${x-16} 338 C${x-56} 346 ${x-86} 372 ${x-86} 446 M${x+16} 307 L${x+16} 338 C${x+56} 346 ${x+86} 372 ${x+86} 446"/>`;
+const can = (x, f) => `<ellipse class="ink" cx="${x+f*60}" cy="276" rx="8" ry="24"/><path class="ink" d="M${x+f*60} 252 L${x+f*104} 258 Q${x+f*112} 276 ${x+f*104} 294 L${x+f*60} 300"/><path class="ink" d="M${x+f*84} 400 L${x+f*104} 348 L${x+f*84} 299"/>`;
+const tangle = (x0, x1, y, k) => { let d = ''; for (let i = 0; i <= 420; i++){ const t = i/420, e = Math.pow(Math.sin(Math.PI*t), 2.6);
+  const X = x0 + (x1-x0)*t + e*(50*Math.sin(2*Math.PI*6.3*t + k) + 30*Math.sin(2*Math.PI*2.7*t + k*2.3)), Y = y + 10*Math.sin(Math.PI*t) + e*(44*Math.sin(2*Math.PI*8.9*t + k*1.7) + 26*Math.cos(2*Math.PI*3.4*t + k));
+  d += (i ? ' L' : 'M') + X.toFixed(1) + ' ' + Y.toFixed(1); } return `<path class="thr" d="${d}"/>`; };
 const L = [
  { key:'Reason', c:'#3ee8ff', x:14,
    title:'We often mistake the reason something is used|for the reason it was created',
@@ -324,24 +328,21 @@ const L = [
    title:'Every system has multiple truths — and the most important|problems often live in the distance between them',
    base:'M0 450 L1000 450',
    art:`
-    ${note(null,null,670,16,'middle',['nobody was wrong: they were all describing','the organisation from where they stood'])}
-    <path class="ink" d="M130 450 L130 250 L430 250 L430 450"/>
-    ${reach(206,250,2.1,270,196)}
-    <path class="ink faint" d="M296 150 L296 236 L404 236"/><path class="ink" d="M304 224 L330 204 L350 212 L394 164 M380 165 L394 164 L393 178"/>
-    ${note(null,null,280,92,'middle',['growth, sales','and partnerships'])}
-    <path class="ink" d="M520 450 L520 330 L820 330 L820 450"/>
-    ${reach(592,330,2.1,664,276)}
-    <circle class="ink" cx="730" cy="270" r="44"/><circle class="ink" cx="730" cy="270" r="28"/><circle class="ink" cx="730" cy="270" r="11"/><path class="ink" d="M710 310 L700 330 M750 310 L760 330"/>
-    ${note(null,null,670,172,'middle',['targets, managing people','and daily coordination'])}
-    <path class="ink" d="M910 450 L910 410 L1210 410 L1210 450"/>
-    <g transform="translate(1000 410) scale(1.3)">${lady(0,0,-1,'roll')}</g>
-    ${Array.from({length:15},(_,k) => `<ellipse class="ink" cx="${1132 + [0,3,-2,4,1,-3,2,5,0,-2,3,6,2,5,8][k]}" cy="${402 - k*10}" rx="34" ry="7"/>`).join('')}
-    ${note(null,null,1060,206,'middle',['routines','and workload'])}
-    ${snapped(474,300,19,-24)}${snapped(478,418,19,78)}
-    ${snapped(864,366,19,28)}${snapped(868,423,19,-82)}
-    <path class="thr" d="M438 362 L512 362 M447 356 L438 362 L447 368 M503 356 L512 362 L503 368"/>
-    <path class="thr" d="M828 318 L902 318 M837 312 L828 318 L837 324 M893 312 L902 318 L893 324"/>
-    ${tag(280,482,'management')}${tag(475,482,'the distance')}${tag(670,482,'supervisors')}${tag(865,482,'the distance')}${tag(1060,482,'shopfloor')}
+    ${note(null,null,670,56,'middle',['nobody was wrong: they were all describing','the organisation from where they stood'])}
+    ${bust(190)}<path class="ink" d="M151 262 C154 222 226 222 229 262 C214 244 182 250 151 262"/>
+    <path class="ink" d="M174 338 L190 358 L206 338 M190 358 L181 374 L190 428 L199 374 L190 358"/>
+    ${can(190,1)}
+    ${note(null,null,190,170,'middle',['growth, sales','and partnerships'])}
+    ${bust(670)}<path class="ink" d="M630 258 C632 216 708 216 710 258 L630 258 M640 258 Q670 246 700 258"/>
+    <path class="ink" d="M690 372 L722 372 L722 404 L690 404 Z M698 382 L714 382 M698 390 L714 390"/>
+    ${can(670,-1)}${can(670,1)}
+    ${note(null,null,670,170,'middle',['targets, managing people','and daily coordination'])}
+    ${bust(1150)}<circle class="ink" cx="1178" cy="228" r="15"/><path class="ink" d="M1110 266 C1112 240 1130 232 1150 232 C1170 232 1188 240 1190 266 M1150 232 L1150 240"/><circle class="dotf" cx="1150" cy="255" r="2.4"/>
+    <path class="ink faint" d="M1186 350 C1160 372 1120 392 1070 408 M1204 358 C1178 388 1130 414 1066 428"/>
+    ${can(1150,-1)}
+    ${note(null,null,1150,170,'middle',['routines','and workload'])}
+    ${tangle(300,560,276,.4)}${tangle(780,1040,276,2.1)}
+    ${tag(190,482,'management')}${tag(430,482,'the distance')}${tag(670,482,'supervisors')}${tag(910,482,'the distance')}${tag(1150,482,'shopfloor')}
     ${note(null,null,670,528,'middle',['growth for management could mean additional workload for a worker'])}`,
    take:'Looking at a system from just one position gives us only part of the picture.' },
 
