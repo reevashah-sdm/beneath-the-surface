@@ -139,7 +139,7 @@ body.photos #slide{opacity:0}
 @media (prefers-reduced-motion: reduce){ .beat,.sway,.bob,.pull,.spin,.gear{animation:none} }
 </style>
 
-<svg id="slide" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Five learnings, one annotated drawing each">
+<svg id="slide" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-label="Four learnings, one annotated drawing each">
   <defs>
     <filter id="neon" filterUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
       <feGaussianBlur stdDeviation="1.4" result="b"/>
@@ -172,7 +172,7 @@ body.photos #slide{opacity:0}
 <div id="endpick" hidden>
   <button data-e="1">1 · beneath the surface</button><button data-e="2">2 · unravel</button><button data-e="3">3 · the jury</button><button data-e="4">4 · paper plane</button><button data-e="5">5 · everything becomes thank you</button><button data-e="6">6 · walk the thread</button>
 </div>
-<div class="chrome top"><span>Beneath the surface</span><div class="pips" id="pips"><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="chrome top"><span>Beneath the surface</span><div class="pips" id="pips"><i></i><i></i><i></i><i></i></div></div>
 <div class="chrome bot"><span id="where">Click or press → to begin</span><span>→ next · ← back</span></div>
 
 <script>
@@ -238,65 +238,59 @@ const note = (px, py, tx, ty, anchor, lines) => {
   return `<g class="note">${dot}<text x="${tx}" y="${ty}" text-anchor="${anchor}">${lines.map((l,i)=>`<tspan x="${tx}" dy="${i?lh:0}">${l}</tspan>`).join('')}</text></g>`;
 };
 
+const pack = (x, y) => `<rect class="ink" x="${x}" y="${y}" width="52" height="30" rx="4"/><circle class="ink faint" cx="${x+26}" cy="${y+15}" r="9"/>`;
+const glider = (x, y, s) => `<path class="ink" d="M${x-60*s} ${y} Q${x} ${y-62*s} ${x+60*s} ${y} Q${x} ${y-22*s} ${x-60*s} ${y} L${x} ${y+62*s} L${x+60*s} ${y}"/>` + figUp(x, y + 118*s, s);
+const hold = (x, y, s) => body(x,y,s) + `<path class="ink" d="${P(x,y,s,[['M',0,-34],['L',-15,-40],['L',-12,-58],['M',0,-34],['L',15,-40],['L',12,-58]])}"/>`;
+const strain = (x, y, s) => `<circle class="ink" cx="${x+4*s}" cy="${y-41*s}" r="${6.6*s}"/><path class="ink" d="${P(x,y,s,[['M',2.5,-34.5],['L',-2,-15],['L',-10,-10],['L',-7,0],['M',-2,-15],['L',8,-9],['L',6,0]])}"/><path class="ink" d="${P(x,y,s,[['M',1.5,-30],['L',-13,-35],['L',-11,-50],['M',1.5,-30],['L',17,-35],['L',14,-50]])}"/>`;
 const L = [
- { key:'Person', c:'#3ee8ff', title:'People shape what we design|around what they need',
+ { key:'Reason', c:'#3ee8ff', x:15, tags:'belong  ·  human behaviour  ·  adventure tourism',
+   title:'We often mistake the reason something is used|for the reason it was created',
    base:'M0 440 L1000 440',
    art:`
-    <path class="ink" d="M150 190 Q200 152 250 190 Q200 228 150 190 Z"/><circle class="ink" cx="200" cy="190" r="12"/>
-    <path class="ink faint" d="M258 190 L392 220"/>
-    ${note(200,206,200,262,'middle',['I can\'t unsee it anymore:','why do people do what they do?'])}
-    <rect class="ink" x="400" y="110" width="170" height="310" rx="24"/>
-    <path class="ink" d="M465 128 L505 128 M465 402 L505 402"/>
-    <rect class="ink" x="420" y="150" width="130" height="150" rx="10"/>
-    <circle class="ink avatar" cx="485" cy="205" r="22"/><path class="ink avatar" d="M449 286 Q485 232 521 286"/>
-    <g class="beat"><path class="ink" d="M485 370 C468 357 458 345 467 336 C474 330 485 334 485 343 C485 334 496 330 503 336 C512 345 502 357 485 370 Z"/></g>
-    ${note(462,352,300,380,'end',['stated need: romance'])}
-    ${bubble(620,112,170,'')}${note(790,135,812,141,'start',['someone to rant to'])}
-    ${bubble(640,198,200,'b')}${note(840,221,862,227,'start',['random thoughts'])}
-    ${bubble(620,284,180,'c')}${note(800,307,822,301,'start',['someone new,','no judgement'])}
-    ${note(null,null,710,408,'middle',['unexpressed need: to feel heard'])}`,
-   take:'People don\'t always use a service for the reason it was designed for.' },
+    <path class="ink" d="M210 440 L330 210 L366 268 L396 232 L500 440"/>
+    ${figUp(330,210,1)}${note(330,148,290,108,'middle',['to challenge themselves'])}
+    ${glider(462,108,.62)}${note(462,72,478,46,'middle',['to seek a thrill'])}
+    ${body(330,440,1.1)}${body(366,440,1.1)}<path class="ink" d="M330 402 L348 414 L366 402"/>
+    ${note(348,380,348,344,'middle',['with their friends'])}
+    ${tag(355,474,'the same adventure')}
+    <rect class="ink" x="530" y="196" width="112" height="240" rx="18"/><path class="ink" d="M570 210 L602 210"/>
+    <path class="ink" d="M586 342 C560 322 545 304 558 290 C569 280 586 286 586 300 C586 286 603 280 614 290 C627 304 612 322 586 342 Z"/>
+    ${note(586,196,586,160,'middle',['platforms for romance'])}
+    ${[['rant to someone',202],['share random thoughts',282],['talk without being judged',362]].map(([t,y]) => `<rect class="ink" x="664" y="${y}" width="236" height="46" rx="23"/><path class="ink" d="M684 ${y+46} L670 ${y+60} L704 ${y+46}"/>${note(null,null,782,y+29,'middle',[t])}`).join('')}
+    ${tag(700,474,'what they were actually seeking')}
+    <ellipse class="ink" cx="1015" cy="228" rx="9" ry="7"/><ellipse class="ink" cx="1047" cy="220" rx="9" ry="7"/><path class="ink" d="M1024 228 L1024 186 L1056 178 L1056 220"/>
+    ${note(null,null,1036,132,'middle',['the same','music-based activity'])}
+    <path class="ink faint" d="M1016 250 L976 288 M1054 250 L1098 288"/>
+    ${tag(966,308,'studio')}${tag(1104,308,'open lawn')}
+    <path class="ink" d="M922 440 L922 326 L1010 326 L1010 440"/>
+    ${body(944,440,1.1)}${body(988,440,1.1)}
+    <path class="ink" d="M944 402 L938 420 M988 402 L994 420"/>
+    ${figUp(1084,440,1.1)}${figUp(1112,440,1.1)}
+    <path class="ink" d="M1050 440 l5 -12 M1132 440 l-4 -11"/>
+    ${tag(1036,474,'very different responses')}`,
+   take:"The purpose of a service doesn't always define its value to the people using it." },
 
- { key:'Backstage', c:'#ffe14d', title:'The backstage is the product',
+ { key:'Surface', c:'#ffe14d', x:32, tags:'induben  ·  adventure tourism',
+   title:'The better something works on the surface,|the easier it is to overlook what is struggling underneath',
    base:'M0 450 L1000 450',
    art:`
-    <circle class="ink" cx="300" cy="250" r="150"/><circle class="ink faint" cx="300" cy="250" r="138"/>
-    <path class="ink" d="${Array.from({length:12},(_,i)=>{const a=i*Math.PI/6, r1=i%3===0?112:122; return `M${(300+Math.cos(a)*r1).toFixed(1)} ${(250+Math.sin(a)*r1).toFixed(1)} L${(300+Math.cos(a)*132).toFixed(1)} ${(250+Math.sin(a)*132).toFixed(1)}`}).join(' ')}"/>
-    <g class="hands"><circle cx="300" cy="250" r="90" fill="none" stroke="none"/><path class="ink" d="M300 250 L300 168 M300 250 L362 282"/></g><circle class="ink" cx="300" cy="250" r="5"/>
-    ${note(300,100,300,62,'middle',['what people notice','and appreciate'])}
-    ${tag(300,432,'FRONTSTAGE')}
-    <path class="ink faint" d="M380 124 L560 162 M412 346 L640 360"/>
-    ${[[600,230,64,16,''],[706,322,40,10,'rev'],[700,142,30,8,'rev']].map(([x,y,r,n,dir],k)=>`<g class="gear ${dir}${k ? '' : ' big'}"><circle class="ink" cx="${x}" cy="${y}" r="${r}"/><circle class="ink hub" cx="${x}" cy="${y}" r="${(r*.28).toFixed(1)}"/>` +
-      `<path class="ink" d="${Array.from({length:n},(_,i)=>{const a=i*2*Math.PI/n;return `M${(x+Math.cos(a)*r).toFixed(1)} ${(y+Math.sin(a)*r).toFixed(1)} L${(x+Math.cos(a)*(r+9)).toFixed(1)} ${(y+Math.sin(a)*(r+9)).toFixed(1)}`}).join(' ')}"/></g>`).join('')}
-    ${tag(650,432,'BACKSTAGE')}
-    ${note(739,142,776,148,'start',['people, processes,','systems behind it'])}
-    ${note(755,322,776,328,'start',['what actually holds','it together'])}
-    ${note(null,null,452,488,'middle',['without a strong backstage, the frontstage can\'t sustain itself'])}`,
-   take:'The backstage deserves equal, if not more, attention.' },
+    <path class="ink" d="M200 300 L650 300 C690 300 720 318 800 320 C880 322 900 300 950 300 L1090 300"/>
+    ${glider(400,122,1)}${note(340,122,300,92,'end',['an enjoyable','experience'])}
+    ${pack(800,288)}${pack(872,284)}${pack(872,254)}${pack(944,270)}${pack(944,240)}${pack(944,210)}
+    <path class="ink faint" d="M790 232 Q860 216 930 166 M914 166 L930 166 L926 182"/>
+    ${note(996,222,1024,206,'start',['products, sales','and a growing brand'])}
+    ${[230,345,465,585].map(x => hold(x,450,2.58)).join('')}
+    ${strain(740,450,2.64)}${strain(868,450,2.62)}
+    <path class="ink faint" d="M694 342 l-10 -6 M692 356 l-12 0 M796 342 l10 -6 M798 356 l12 0 M822 342 l-8 -6 M821 356 l-9 0 M922 342 l9 -6 M924 356 l10 0"/>
+    <g class="gear"><circle class="ink" cx="1015" cy="375" r="62"/><circle class="ink" cx="1015" cy="375" r="17"/><path class="ink" d="${rays(1015,375,62,72,14)}"/></g>
+    ${tag(230,474,'guides')}${tag(345,474,'equipment checks')}${tag(470,474,'safety measures')}${tag(588,474,'coordination')}
+    ${tag(738,474,'shopfloor workers')}${tag(870,474,'supervisors')}${tag(1015,474,'production processes')}
+    ${note(null,null,408,503,'middle',['preparation that goes unnoticed'])}
+    ${note(null,null,876,503,'middle',['dealing with their own challenges'])}`,
+   take:'A system can look successful while struggling internally.' },
 
- { key:'Setup', c:'#8dff5a', title:'Where and when changes how people behave',
-   base:'M0 420 L1000 420',
-   art:`
-    <g class="jar"><path class="shade" d="M220 420 L220 220 C220 150 260 120 320 120 C380 120 420 150 420 220 L420 420 Z"/>
-    <path class="ink" d="M220 420 L220 220 C220 150 260 120 320 120 C380 120 420 150 420 220 L420 420"/>
-    <circle class="ink" cx="320" cy="108" r="11"/></g>
-    <path class="ink" d="M320 420 C320 350 324 302 346 288 C362 279 371 293 365 307"/>
-    <path class="ink" d="M321 372 Q301 372 293 388 Q312 388 321 372"/>
-    <circle class="ink" cx="364" cy="317" r="9"/>
-    <ellipse class="ink" cx="356" cy="335" rx="4" ry="10"/><ellipse class="ink" cx="372" cy="335" rx="4" ry="10"/>
-    ${note(222,200,190,206,'end',['a formal space'])}
-    ${note(222,300,190,296,'end',['schedules and','commitments'])}
-    <g class="sway"><path class="ink" d="M660 420 C656 352 664 302 660 254"/>
-      <path class="ink" d="M660 362 Q634 352 630 334 Q654 338 660 362 M661 330 Q686 318 692 300 Q670 304 661 330"/>${bloom(660,234,14,7)}</g>
-    <g class="spin"><circle class="ink" cx="840" cy="120" r="22"/><path class="ink" d="${rays(840,120,32,44,8)}"/></g>
-    <path class="ink" d="M560 420 l5 -12 M760 420 l-4 -11 M800 420 l4 -9"/>
-    ${note(684,232,714,238,'start',['an open space'])}
-    ${note(690,320,714,326,'start',['natural conversations'])}
-    <path class="ink faint" d="M320 440 L320 452 L660 452 L660 440"/>
-    ${note(null,null,490,480,'middle',['the exact same prototype'])}`,
-   take:'"Don\'t blame the flower, blame the environment."' },
-
- { key:'Views', drop:28, c:'#b77bff', title:'Where you stand decides what you see',
+ { key:'Views', c:'#b77bff', x:-20, tags:'induben  ·  human behaviour  ·  adventure tourism',
+   title:'Every system has multiple truths, and the most important|problems often live in the distance between them',
    base:'M0 450 L1000 450',
    art:`
     <path class="ink" d="M470 200 C452 220 446 250 450 280 C454 322 448 380 430 420 C427 428 419 430 417 423 C431 385 442 345 468 322 L492 318"/>
@@ -310,31 +304,48 @@ const L = [
     <path class="ink" d="M540 204 C590 198 612 240 602 290 C596 312 562 316 550 300 C542 288 540 244 540 204 Z"/>
     <circle class="ink" cx="498" cy="234" r="3"/><path class="ink" d="M480 316 C492 334 514 338 526 330"/>
     ${reach(604,450,1.8,571,391).replaceAll('class="ink"', 'class="knock fadeEl"')}${reach(604,450,1.8,571,391)}
-    ${note(null,null,607,30,'middle',['one organisation, seen honestly, but only from where they stand.','nobody was wrong, each sees one part'])}
-    ${note(350,334,350,280,'middle',["it's about growth,",'sales, partnerships'])}
-    ${note(620,163,620,106,'middle',["it's about targets,",'managing people'])}
-    ${note(862,334,872,280,'middle',["it's about routine",'and workload'])}
+    ${note(null,null,607,30,'middle',['nobody was wrong. they were all describing','the organisation from where they stood'])}
+    ${note(350,334,350,280,'middle',['growth, sales','and partnerships'])}
+    ${note(620,163,620,106,'middle',['targets, managing people','and daily coordination'])}
+    ${note(862,334,872,280,'middle',['routines','and workload'])}
     <path class="ink faint" d="M416 475 L532 475 M424 470 L416 475 L424 480 M524 470 L532 475 L524 480 M660 475 L814 475 M668 470 L660 475 L668 480 M806 470 L814 475 L806 480"/>
-    ${note(null,null,607,518,'middle',['the gaps between views are where problems sit'])}`,
-   take:'Seek out multiple viewpoints, especially the ones that are least heard.' },
+    ${note(null,null,607,507,'middle',['growth for management could mean additional workload for a worker'])}
+    <path class="ink" d="M940 450 L1030 290 L1056 330 L1074 308 L1132 450"/>
+    ${figUp(1030,290,.9)}${body(976,386,.9)}${body(1150,450,.9)}
+    ${note(1030,226,1030,190,'middle',['participant'])}
+    ${note(982,358,1022,376,'start',['guide'])}
+    ${note(1150,396,1150,362,'middle',['organiser'])}
+    ${tag(1050,476,'the same activity')}`,
+   take:'Looking at a system from just one position gives us only part of the picture.' },
 
- { key:'Change', c:'#ff9b3d', title:'The trust that builds a brand can also hold it back',
+ { key:'Expectation', c:'#ff9b3d', x:2, tags:'induben  ·  belong  ·  brand strategy',
+   title:"A brand doesn't just build a reputation;|it builds an expectation of who it is allowed to become",
    base:'M0 430 L1000 430',
    art:`
-    <rect class="ink faint" x="110" y="200" width="210" height="210" rx="4"/>
-    <path class="ink" d="${piece(180,270,70,[-1,-1,1,-1])}"/>
-    ${note(215,256,215,166,'middle',['new: complete freedom,','any shape fits'])}
-    ${note(null,null,215,470,'middle',['but freedom came without proof'])}
-    <path class="ink" d="M560 200 L770 200 L770 410 L560 410 Z"/>
-    <path class="ink" d="${gridEdges(560,200,70)}"/>
-    <path class="shade" d="${piece(630,270,70,centreSigns)}" style="fill-opacity:.16"/>
-    <path class="ink faint" d="M838 246 Q770 300 708 304 M708 304 L718 296 M708 304 L718 312"/>
-    <g class="bob loose"><path class="ink" d="${piece(840,176,70,centreSigns)}"/></g>
-    ${note(665,200,665,160,'middle',['existing: already a full picture'])}
-    ${note(910,190,930,196,'start',['always scope','to improve'])}
-    ${note(null,null,665,470,'middle',['the new piece has to fit','what is already there'])}`,
-   take:'Understand what can change, what must stay, and move forward without breaking what works.' }
+    <path class="ink" d="M442 300 A78 78 0 0 1 598 300"/><path class="ink faint" d="M442 300 A78 78 0 0 0 598 300"/>
+    <path class="ink faint" d="M454 300 A66 66 0 0 1 586 300"/>
+    ${[[484,270],[500,250],[520,262],[543,248],[558,272],[512,284],[536,281],[470,288],[572,290],[527,240],[495,288]].map(([x,y]) => `<circle class="dotf" cx="${x}" cy="${y}" r="2"/>`).join('')}
+    <path class="ink" d="M424 300 L616 300 L616 430 L424 430 Z"/>
+    ${note(null,null,520,412,'middle',['Induben'])}
+    ${note(520,222,520,160,'middle',['people trust it for','homemade Jain khakhra'])}
+    <g transform="rotate(-9 300 330)"><rect class="ink" x="262" y="262" width="82" height="136" rx="5"/><path class="ink" d="M303 262 L303 398 M262 296 L344 296 M262 330 L344 330 M262 364 L344 364"/></g>
+    <path class="ink faint" d="M362 330 L404 330 M396 323 L404 330 L396 337"/>
+    ${note(295,262,290,220,'middle',['chocolates'])}
+    ${note(null,null,430,470,'middle',["people couldn't easily associate chocolates",'with a brand they knew for khakhra'])}
+    <rect class="ink faint" x="700" y="280" width="150" height="150" rx="4"/>
+    <path class="ink" d="${piece(750,330,50,[-1,-1,1,-1])}"/>
+    ${note(775,322,775,230,'middle',['Belong:','complete freedom'])}
+    ${note(null,null,775,470,'middle',['no established trust','or user habits'])}
+    <path class="ink" d="M930 280 L1080 280 L1080 430 L930 430 Z"/>
+    <path class="ink" d="${gridEdges(930,280,50)}"/>
+    <path class="shade" d="${piece(980,330,50,centreSigns)}" style="fill-opacity:.16"/>
+    <path class="ink faint" d="M1116 262 Q1090 340 1034 354 M1044 345 L1034 354 L1047 358"/>
+    <g class="bob loose"><path class="ink" d="${piece(1094,200,50,centreSigns)}"/></g>
+    ${note(970,280,970,230,'middle',['Hinge:','a proven platform'])}
+    ${note(null,null,1005,470,'middle',['every new idea had to work within','existing user expectations'])}`,
+   take:'What makes people trust a brand also shapes what they expect from it.' }
 ];
+const LAST = L.length;   // how many learnings
 
 // ---------- build scenes ----------
 const el = (tag, attrs={}, parent=svg) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
@@ -396,17 +407,17 @@ function photosIn(sc, on){
 
 // each learning is a stop along one long drawing; its statement is written under it like a caption
 L.forEach((d, i) => {
-  const tl = wrap(d.title.replace('|', ' '), 72);
+  const tl = d.title.split('|');
   // the statement rises into place word by word as the view arrives (see .stmt)
   let wi = 0;
-  const head = tl.map((l, k) => `<text class="ttl stmt" x="775" y="${768 + (d.drop || 0) + k*46}" text-anchor="middle">` +
+  const head = tl.map((l, k) => `<text class="ttl stmt" x="775" y="${776 + k*46}" text-anchor="middle">` +
     `${l}${k === tl.length-1 ? '.' : ''}`.split(' ').map(w => `<tspan style="transition-delay:${(.12 + .07*wi++).toFixed(2)}s">${w} </tspan>`).join('') + `</text>`).join('');
-  d.capY = 768 + (d.drop || 0) + tl.length*46 + 4;
+  d.capY = 776 + tl.length*46 + 2;
   if (d.key === 'Views') d.art = `<g class="hopper">${d.art}</g>`;
-  const sc = makeScene(d.c, head, d, d.base, false);
+  const sc = makeScene(d.c, `<text class="tagt" x="775" y="76" text-anchor="middle" xml:space="preserve">${d.tags}</text>` + head, d, d.base, false);
   // centre the whole drawing (with its notes) on the statement below it
-  const art = sc.g.querySelector('g[transform^="translate(200 130)"]'), dy = d.key === 'Person' ? 22 : 0;   // the phone sits on the thread like the others
-  art.setAttribute('transform', `translate(${[205, 257, 187, 77, 189][i]} ${AY + dy}) scale(${S})`);
+  const art = sc.g.querySelector('g[transform^="translate(200 130)"]');
+  art.setAttribute('transform', `translate(${d.x} ${AY}) scale(${S})`);
   sc.g.setAttribute('transform', `translate(${(i+1)*GAP} 0)`);
   const y0 = +d.base.match(/^M0 (\d+)/)[1];
   sc.ty = W(0, y0)[1]; sc.key = d.key;
@@ -422,7 +433,7 @@ const CURSIVE = 'M-170 0 C-100 0 -70 -150 -10 -150 L95 -150 C128 -150 82 -238 56
   'C758 -95 780 -116 800 -112 C825 -108 830 -40 805 -10 C785 10 755 -10 760 -50 C764 -85 790 -108 815 -108 C830 -108 845 -105 858 -112 ' +
   'C855 -60 855 -5 880 -4 C905 -3 915 -60 918 -112 C916 -60 915 -10 930 -4 C945 2 975 -6 1000 -18 C1030 -32 1070 -22 1110 -28';
 // the whole journey seen at once
-const OX0 = GAP + 150, OX1 = 5*GAP + 1450, OW = OX1 - OX0, OH = OW * 9/16, OCX = (OX0 + OX1)/2;
+const OX0 = GAP + 150, OX1 = LAST*GAP + 1450, OW = OX1 - OX0, OH = OW * 9/16, OCX = (OX0 + OX1)/2;
 const OVA = [OX0, 450 - OH/2, OW, OH];
 const TY = 630;   // the thread's height: the "surface"
 makeScene('#ff3fd2', '', null, '', true);
@@ -483,7 +494,7 @@ const threadPiece = d => { const r = roughen(el('path', {class:'conn', d}, connL
 // one smooth, unhurried curve: almost level where a drawing stands on it, free to drift between drawings
 const ease = t => t*t*(3 - 2*t);
 function flowY(x){
-  const i = Math.max(0, Math.min(5, Math.floor((x - 250) / GAP)));
+  const i = Math.max(0, Math.min(LAST, Math.floor((x - 250) / GAP)));
   const lx = x - i*GAP, y = scenes[i].ty;
   if (lx <= 1300){
     // under a drawing: a barely-there swell, so it reads as ground but not as a ruler
@@ -491,7 +502,7 @@ function flowY(x){
     return y + 5*Math.sin(t*Math.PI*1.5 + i) * Math.sin(t*Math.PI)**2;
   }
   const t = (lx - 1300) / 550;
-  if (i === 5) return y + 26*Math.sin(t*Math.PI*.9)*Math.sin(t*Math.PI*1.6) - 14*ease(Math.min(1, t));   // loose end drifts off
+  if (i === LAST) return y + 26*Math.sin(t*Math.PI*.9)*Math.sin(t*Math.PI*1.6) - 14*ease(Math.min(1, t));   // loose end drifts off
   const y2 = scenes[i+1].ty, dir = i % 2 ? -1 : 1;
   // between drawings: a slow S, like a ribbon carried from one place to the next
   const env = Math.sin(t*Math.PI)**2;
@@ -499,9 +510,9 @@ function flowY(x){
 }
 const flowPath = (a, b) => { let d = ''; for (let x = a; x < b; x += 6) d += `${d ? ' L' : 'M'}${x.toFixed(0)} ${flowY(x).toFixed(1)}`; return d + ` L${b} ${flowY(b).toFixed(1)}`; };
 const seg = [], link = [];
-for (let i = 0; i <= 5; i++){
+for (let i = 0; i <= LAST; i++){
   seg.push(threadPiece(flowPath(i ? i*GAP + 250 : -60, i*GAP + 1300)));
-  if (i < 5) link.push(threadPiece(flowPath(i*GAP + 1300, (i+1)*GAP + 250)));
+  if (i < LAST) link.push(threadPiece(flowPath(i*GAP + 1300, (i+1)*GAP + 250)));
   else link.push(threadPiece(flowPath(i*GAP + 1300, i*GAP + 1560)));   // a loose end
 }
 
@@ -570,7 +581,7 @@ const JURY = `
       : body(x, 450, 1.7) + `<path class="ink" d="M${x} ${(450-34*1.7).toFixed(1)} L${x-13} ${(450-14*1.7).toFixed(1)} M${x} ${(450-34*1.7).toFixed(1)} L${x+13} ${(450-14*1.7).toFixed(1)}"/>`).join('')}`;
 const jury = makeScene('#fff', '', {art:JURY, take:'', capY:0}, '', false);
 scenes.pop(); endLayer.appendChild(jury.g); jury.g.setAttribute('transform', `translate(${END*GAP} 0)`);
-const JY = AY + 450*S, jx0 = 5*GAP + 1300, jy0 = flowY(jx0), jx1 = END*GAP + 250;
+const JY = AY + 450*S, jx0 = LAST*GAP + 1300, jy0 = flowY(jx0), jx1 = END*GAP + 250;
 const linkC = threadPiece(`M${jx0} ${jy0.toFixed(1)} C${jx0 + 220} ${jy0.toFixed(1)} ${jx1 - 220} ${JY} ${jx1} ${JY}`);
 const segC = threadPiece(`M${jx1} ${JY} L${END*GAP + 1300} ${JY}`);
 
@@ -719,7 +730,7 @@ function walkTheThread(){
 
 const ENDINGS = {
   6(){  // straight to the thank you: he walks in pulling the words along the thread, then waves bye
-    camTo(view(END), 0); hide(scenes[5], false);
+    camTo(view(END), 0); hide(scenes[LAST], false);
     setInstant(linkC, true); setInstant(segC, true);
     walker.classList.add('on'); poseWalker(END*GAP - 120, groundY(END*GAP - 120), POSE.idle());
     later(dragThanks, .45);
@@ -739,9 +750,9 @@ const ENDINGS = {
   },
   2(){  // pull the loose end: everything unpicks, right to left, back into the thread; the thread writes thank you
     svg.classList.add('overview'); camTo(OVA, 800);
-    later(() => { for (let i = 5; i >= 0; i--){ const b = (5 - i)*.14;
+    later(() => { for (let i = LAST; i >= 0; i--){ const b = (LAST - i)*.14;
       scenes[i].parts.forEach(p => { if (p.on) erase(p, b + rnd()*.15); });
-      erase(seg[i], b + .1); if (i < 5) erase(link[i], b); } }, .6);
+      erase(seg[i], b + .1); if (i < LAST) erase(link[i], b); } }, .6);
     drawOn(wMid, 1.9, 1.8); later(() => popHeart(wMid), 3.8);
   },
   3(){  // the jury joins the drawing
@@ -828,8 +839,8 @@ function replayEnding(){
   clearTimeout(pending); clearTimeout(pending2); resetFinale();
   svg.classList.remove('overview');
   scenes.forEach(sc => showStill(sc));
-  seg.forEach(p => setInstant(p, true)); link.forEach((p, j) => setInstant(p, j < 5));
-  camTo(view(5), 0); standAt(park(5));
+  seg.forEach(p => setInstant(p, true)); link.forEach((p, j) => setInstant(p, j < LAST));
+  camTo(view(LAST), 0); standAt(park(LAST));
   finale();
 }
 
@@ -884,10 +895,10 @@ function go(n){
     }
   } else {
     scenes.forEach((sc, j) => j <= n ? showStill(sc) : hide(sc, false));
-    seg.forEach((p, j) => setInstant(p, j <= Math.min(n, 5)));
+    seg.forEach((p, j) => setInstant(p, j <= Math.min(n, LAST)));
     link.forEach((p, j) => setInstant(p, j < n));
-    standAt(park(Math.min(n, 5)));
-    if (n === END){ camTo(view(5), 0); finale(); }
+    standAt(park(Math.min(n, LAST)));
+    if (n === END){ camTo(view(LAST), 0); finale(); }
     else camTo(view(n), Math.abs(n - from) === 1 ? 900 : 0);
   }
   chrome();
